@@ -1,4 +1,4 @@
-from doubly_linked_list import DoublyLinkedList
+from doubly_linked_list import DoublyLinkedList, ListNode
 
 
 class RingBuffer:
@@ -8,13 +8,22 @@ class RingBuffer:
         self.storage = DoublyLinkedList()
 
     def append(self, item):
-        pass
+        if self.current:
+            self.storage.value = item
+        else:
+            self.storage.head = self.current
+            self.storage.add_to_head(item)
 
     def get(self):
         # Note:  This is the only [] allowed
         list_buffer_contents = []
 
         # TODO: Your code here
+        current_node = self.storage.head
+        for i in range(0, self.capacity):
+                if current_node:
+                    list_buffer_contents.append(current_node.value)
+                    current_node = current_node.next
 
         return list_buffer_contents
 
@@ -30,3 +39,14 @@ class ArrayRingBuffer:
 
     def get(self):
         pass
+
+""" test code"""
+
+buffer = RingBuffer(3)
+print(buffer.get())
+
+buffer.append('a')
+buffer.append('b')
+buffer.append('c')
+
+print(buffer.get())
